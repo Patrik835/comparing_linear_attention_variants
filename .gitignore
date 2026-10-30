@@ -1,0 +1,54 @@
+# Python bytecode and tool caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Local Python / Conda environments (keep environment.yml and lockfiles)
+.venv/
+venv/
+env/
+.conda/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+
+# Jupyter temporary files (keep the notebooks themselves)
+.ipynb_checkpoints/
+.virtual_documents/
+
+# Generated datasets and downloads (keep data source code and small fixtures)
+/datasets/
+/data/cache/
+/data/generated/
+/.cache/
+
+# Training artifacts and experiment tracking
+/checkpoints/
+/outputs/
+/runs/
+wandb/
+lightning_logs/
+events.out.tfevents.*
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+
+# Local secrets (keep template files)
+.env
+.env.*
+!.env.example
+!.env.template
+.aws/
+
+# Operating-system temporary files
+.DS_Store
+Thumbs.db
+*~

@@ -1,0 +1,40 @@
+import torch
+import torch.nn as nn
+
+class CausalLinearAttention(nn.Module):
+    # initialize learnable tensor weights with correct dims
+    def __init__(self, hidden_size):
+        super().__init__()
+        self.W_q = nn.Linear(hidden_size, hidden_size, bias=False)
+        self.W_k = nn.Linear(hidden_size, hidden_size, bias=False)
+        self.W_v = nn.Linear(hidden_size, hidden_size, bias=False)
+        self.out_proj = nn.Linear(hidden_size, hidden_size)
+
+    def forward(self, x):
+        # get batch size (n of sequences), sequence length and d_k (key dimension)
+        B, T, d_k = x.shape
+
+        q = self.W_q(x)
+        k = self.W_k(x)
+        v = self.W_v(x)
+        # get d_v (value dimension)
+        d_v = v.shape[-1]
+        batch_outputs = []
+
+        for b in range(B):
+            # each sequence starts with its own memory
+            S = q.new_zeros(d_k, d_v)
+            outputs = []
+
+            for t in range(T):
+                # [d_k] outer [d_v] -> [d_k, d_v]
+                S = S + torch.outer(k[b, t], v[b, t])
+                # [d_k] @ [d_k, d_v] -> [d_v]
+                output_t = q[b, t] @ S
+                outputs.append(output_t)
+
+            batch_outputs.append(torch.stack(outputs))  # [T, d_v]
+        # collect results [B, T, hidden_size]
+        o = torch.stack(batch_outputs)
+        # transform each token's result
+        return self.out_proj(o)  
