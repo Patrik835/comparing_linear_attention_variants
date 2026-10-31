@@ -8,6 +8,7 @@ __pycache__/
 .coverage.*
 htmlcov/
 
+
 # Local Python / Conda environments (keep environment.yml and lockfiles)
 .venv/
 venv/
@@ -52,3 +53,6 @@ events.out.tfevents.*
 .DS_Store
 Thumbs.db
 *~
+
+
+.vscode

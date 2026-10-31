@@ -3,12 +3,13 @@ import torch.nn as nn
 
 class CausalLinearAttention(nn.Module):
     # initialize learnable tensor weights with correct dims
-    def __init__(self, hidden_size):
+    def __init__(self, d_model, layer_idx=None):
         super().__init__()
-        self.W_q = nn.Linear(hidden_size, hidden_size, bias=False)
-        self.W_k = nn.Linear(hidden_size, hidden_size, bias=False)
-        self.W_v = nn.Linear(hidden_size, hidden_size, bias=False)
-        self.out_proj = nn.Linear(hidden_size, hidden_size)
+        # Zoology gives layer_idx, this attention variant does not need it
+        self.W_q = nn.Linear(d_model, d_model, bias=False)
+        self.W_k = nn.Linear(d_model, d_model, bias=False)
+        self.W_v = nn.Linear(d_model, d_model, bias=False)
+        self.out_proj = nn.Linear(d_model, d_model)
 
     def forward(self, x):
         # get batch size (n of sequences), sequence length and d_k (key dimension)
@@ -37,4 +38,4 @@ class CausalLinearAttention(nn.Module):
         # collect results [B, T, hidden_size]
         o = torch.stack(batch_outputs)
         # transform each token's result
-        return self.out_proj(o)  
+        return self.out_proj(o)
