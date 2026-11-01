@@ -1,0 +1,4 @@
+variant,run_id,run_name,url,state,seed,epochs,d_model,train_examples,validation_examples,batch_size,sequence_length
+Basic LA,a19gwvnm,basic-la-seed-123,https://wandb.ai/patrik8352/linear-attention-mqar/runs/a19gwvnm,finished,123,10,64,2000,500,4,64
+DeltaNet,lo0mdhhy,delta-net-seed-123,https://wandb.ai/patrik8352/linear-attention-mqar/runs/lo0mdhhy,finished,123,10,64,2000,500,4,64
+Gated DeltaNet,81bnif53,gated-delta-net-seed-123,https://wandb.ai/patrik8352/linear-attention-mqar/runs/81bnif53,finished,123,10,64,2000,500,4,64
